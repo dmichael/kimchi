@@ -2,6 +2,7 @@ module Kimchi
   module Mapping
     extend ActiveSupport::Concern
     
+
     module Registry
       def self.mappings
         @mappings ||= []  

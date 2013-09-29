@@ -8,9 +8,17 @@ require 'adamantium'
 
 
 module Kimchi
+  def self.connect(args = {})
+    index = args.delete(:index)
+  end
+
+  class Connection
+  end
 end
 
 require 'kimchi/version'
+require 'kimchi/index'
+
 require 'kimchi/attributes/hashie'
 require 'kimchi/response/hit'
 require 'kimchi/response/facet'
