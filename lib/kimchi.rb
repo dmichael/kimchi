@@ -8,9 +8,10 @@ require 'adamantium'
 
 require 'kimchi/version'
 require 'kimchi/attributes/hashie'
-require 'kimchi/elasticsearch/hit'
-require 'kimchi/elasticsearch/facet'
-require 'kimchi/elasticsearch/search_response'
+require 'kimchi/response/hit'
+require 'kimchi/response/facet'
+require 'kimchi/response/search'
+require 'kimchi/mapping'
 
 require 'kimchi/model'
 
