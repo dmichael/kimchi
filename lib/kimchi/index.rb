@@ -22,7 +22,7 @@ module Kimchi
     end
 
     def client
-      @client ||= Elasticsearch::Client.new({
+      @client ||= ::Elasticsearch::Client.new({
         log:  @config.log,
         host: @config.uri
       })
