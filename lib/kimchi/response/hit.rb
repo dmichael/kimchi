@@ -1,5 +1,5 @@
 module Kimchi
-  module Elasticsearch  
+  module Response  
     class Hit
       include Virtus
 

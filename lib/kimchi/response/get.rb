@@ -1,6 +1,6 @@
 module Kimchi
-  module Elasticsearch
-    class GetResponse
+  module Response
+    class Get
       # include Virtus
       
       def initialize(json)

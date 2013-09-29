@@ -1,5 +1,5 @@
 module Kimchi
-  module Elasticsearch  
+  module Search  
     class Facet
       include Virtus
 

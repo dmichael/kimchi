@@ -1,7 +1,7 @@
 module Kimchi
-  module Elasticsearch
+  module Response
 
-    class SearchResponse
+    class Search
       include Virtus, Enumerable, Adamantium
       
       attribute :took,      Integer
