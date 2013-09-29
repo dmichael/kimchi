@@ -1,5 +1,5 @@
 module Kimchi
-  module Search  
+  module Response  
     class Facet
       include Virtus
 
