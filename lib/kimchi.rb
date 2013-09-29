@@ -5,7 +5,7 @@ require 'active_support/concern'
 require 'multi_json'
 require 'hashie'
 require 'adamantium'
-
+require 'elasticsearch'
 
 module Kimchi
   def self.connect(args = {})
