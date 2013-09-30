@@ -3,10 +3,20 @@ module Kimchi
     @indicies ||= {}
   end
 
-  def self.Index(name = 'default')
+  def self.default_index
+    @default_index || 'default'
+  end
+
+  def self.default_index=(name)
+    @default_index = name
+  end
+
+  def self.Index(name = nil)
+    name ||= default_index
     indicies[name] = Index.new(name) unless indicies[name]
     indicies[name] 
   end
+
 
   class Index
     attr_accessor :config, :name
@@ -21,11 +31,13 @@ module Kimchi
       self
     end
 
-    def client
-      @client ||= ::Elasticsearch::Client.new({
-        log:  @config.log,
-        host: @config.uri
-      })
+    def client(params = {})
+      @client ||= Client.new log: @config.log, host: @config.uri
+      @client.client(params)
+    end
+
+    def search(args = {})
+      client(args).search({index: @name}.merge(args))
     end
 
     def index(type, document)
@@ -56,32 +68,5 @@ module Kimchi
     end
 
   end
-
-  class Configuration
-    include Virtus
-    attribute :log,       Boolean, default: true
-    attribute :_uri,      String, default: "localhost:9200" 
-    attribute :_settings, Hash, default: {}
-
-    def settings(arg = nil)
-      return self._settings if arg.nil?
-      self._settings = arg
-    end
-
-    def mappings
-      @mappings ||= {}  
-    end
-
-    def mapping(type, map)
-      mappings[type] = map
-    end
-
-    def uri(address = nil)
-      return self._uri if address.nil?
-      self._uri = address
-    end
-  end
-
-
 end
 

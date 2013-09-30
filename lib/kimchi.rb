@@ -17,12 +17,13 @@ module Kimchi
 end
 
 require 'kimchi/version'
+require 'kimchi/serializer/passthrough'
+require 'kimchi/client'
+require 'kimchi/configuration'
 require 'kimchi/index'
 
 require 'kimchi/attributes/hashie'
 require 'kimchi/response/hit'
 require 'kimchi/response/facet'
 require 'kimchi/response/search'
-require 'kimchi/mapping'
-require 'kimchi/model'
 

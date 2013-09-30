@@ -2,7 +2,7 @@ module Kimchi
   module Response
 
     class Search
-      include Virtus, Enumerable, Adamantium
+      include Virtus, Adamantium
       
       attribute :took,      Integer
       attribute :timed_out, Boolean
@@ -11,14 +11,16 @@ module Kimchi
       attribute :total,     Integer
       attribute :max_score, Integer
       attribute :hits,      Array[Hit]
-      attribute :facets,    Array[Facet],  default: []
+      # attribute :facets,    Array[Facet],  default: []
       attribute :highlight, Array[String], default: []
 
       alias_method :shards, :_shards
 
       def self.load(json)
-        raw = MultiJson.load(json)
-      
+        raw = json.is_a?(String) ? MultiJson.load(json) : json
+
+        raw.delete('facets')
+        
         response = new(raw.merge({
           total:     raw['hits'].delete('total'),
           max_score: raw['hits'].delete('max_score'),
@@ -26,9 +28,6 @@ module Kimchi
         }))
       end
 
-      def each(&block)
-        hits.each(&block)
-      end
     end
 
   end
