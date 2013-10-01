@@ -16,7 +16,7 @@ module Kimchi
     end
 
     def client(params={})
-      if params.delete(:passthrough)
+      if params[:passthrough]
         passthrough
       else
         standard

@@ -17,7 +17,6 @@ module Kimchi
     indicies[name] 
   end
 
-
   class Index
     attr_accessor :config, :name
 
@@ -37,7 +36,9 @@ module Kimchi
     end
 
     def search(args = {})
-      client(args).search({index: @name}.merge(args))
+      results = client(args).search({index: @name}.merge(args))
+      return results if args[:passthrough]
+      Kimchi::Response::Search.load(results)
     end
 
     def index(type, document)
@@ -65,6 +66,14 @@ module Kimchi
 
     def delete!
       client.indices.delete index: @name
+    end
+
+    def get(id, options = {})
+      client.get( {index: @name, type: '_all', id: id}.merge(options) )
+    end
+
+    def get_source(id, options = {})
+      client.get_source({ index: @name, type: '_all', id: id }.merge(options))
     end
 
   end
