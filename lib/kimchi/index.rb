@@ -20,6 +20,10 @@ module Kimchi
   class Index
     attr_accessor :config, :name
 
+    def self.default
+      @default ||= Kimchi::Index(Kimchi.default_index)
+    end
+
     def initialize(name)
       @name   = name
       @config = Configuration.new
