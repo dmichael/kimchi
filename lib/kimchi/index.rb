@@ -76,6 +76,10 @@ module Kimchi
       client.get_source({ index: @name, type: '_all', id: id }.merge(options))
     end
 
+    def health
+      client.cluster.health
+    end
+
   end
 end
 
