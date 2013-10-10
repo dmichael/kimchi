@@ -17,6 +17,10 @@ module Kimchi
     indicies[name] 
   end
 
+  def self.index(name = nil)
+    self.Index(name)
+  end
+
   class Index
     attr_accessor :config, :name
 

@@ -2,13 +2,19 @@
 module Kimchi
   class Configuration
     include Virtus
-    attribute :log,       Boolean, default: true
+
+    attribute :_log,       Boolean, default: true
     attribute :_uri,      String, default: "localhost:9200" 
     attribute :_settings, Hash, default: {}
 
     def settings(arg = nil)
       return self._settings if arg.nil?
       self._settings = arg
+    end
+
+    def log(boolean = nil)
+      return self._log if boolean.nil?
+      self._log = boolean
     end
 
     def models
