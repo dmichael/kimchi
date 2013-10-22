@@ -1,4 +1,10 @@
 module Kimchi
+
+  module Errors
+    class NotFound < StandardError
+    end
+  end
+
   def self.indicies
     @indicies ||= {}
   end
@@ -76,12 +82,31 @@ module Kimchi
       client.indices.delete index: @name
     end
 
-    def get(id, options = {})
-      client.get( {index: @name, type: '_all', id: id}.merge(options) )
+    def get(options = {})
+      begin
+        result = client.get( {index: @name, type: '_all'}.merge(options) )
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
+        return nil
+      end
+
+      Kimchi::Response::Document.load(result)
     end
 
-    def get_source(id, options = {})
-      client.get_source({ index: @name, type: '_all', id: id }.merge(options))
+    # body: { ids: ids}
+    def mget(options = {})
+      begin
+        results = client.mget( {index: @name, type: '_all'}.merge(options) )
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound => e
+        return []
+      end
+
+      results['docs'].map {|doc|
+        Kimchi::Response::Document.load(doc)
+      }
+    end
+
+    def get_source(options = {})
+      client.get_source({ index: @name, type: '_all'}.merge(options))
     end
 
     def health

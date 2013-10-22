@@ -1,3 +1,6 @@
+# You know, this class really only normalizes the response from Elasticsearch
+# - its not really that different.
+
 module Kimchi
   module Response
 
