@@ -25,7 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "adamantium", "~> 0.1.0"
   # spec.add_dependency "virtus", "~> 1.0.0.beta8"
   spec.add_dependency "virtus", "~> 0.5.5"
-  spec.add_dependency 'activesupport',   '>= 4.0.0'
+  spec.add_dependency 'activesupport'
   spec.add_dependency 'multi_json',      '~> 1.7.3'
   spec.add_dependency 'hashie',      '~> 2.0'
 end
